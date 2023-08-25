@@ -62,21 +62,6 @@ map_data <-
              # pch=21,
              size=2,
              alpha=I(0.7))+
-  # geom_text(
-  #   label=title,
-  #   nudge_x = 0.25, nudge_y = 0.25,
-  #   check_overlap = T
-  # )+
-  # geom_text(data = hbdata,
-  #   aes(
-  #     x = long,
-  #     y = lat,
-  #     label=title
-  #   ),
-  #   # check_overlap = TRUE,
-  #   # nudge_x = -14.25,
-  #   # nudge_y = -5.25
-  # )+
   labs(
     title = "Hollywood's Lost Biodiversity",
     subtitle = "submit your sightings at https://github.com/BrunaLab/hollywood-biodiversity"
@@ -91,8 +76,11 @@ map_data <-
                   # nudge_x = -14.25,
                   # nudge_y = -5.25
                   )+
-    # theme(legend.position = "bottom")
-  theme(legend.position = "right")
+  facet_wrap(~common_name,
+             ncol=1)+
+  theme(legend.position = "none",
+        strip.text.x = element_text(size=12, face="bold")
+        )
 map_data
 
 
