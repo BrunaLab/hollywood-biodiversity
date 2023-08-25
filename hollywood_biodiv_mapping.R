@@ -7,7 +7,7 @@
 library(tidyverse)
 library(maps)
 library(ggplot2)
-
+library(ggrepel)
 
 # http://sarahleejane.github.io/learning/r/2014/09/20/plotting-beautiful-clear-maps-with-r.html
 # https://sarahleejane.github.io/learning/r/2014/09/21/plotting-data-points-on-maps-with-r.html
@@ -53,13 +53,46 @@ hbdata<-read_csv("./data_raw/hb_data_raw.csv") %>%
 map_data <-
   base_world +
   geom_point(data = hbdata,
-             aes(x = long,
+             aes(
+               x = long,
                  y = lat,
-                 fill = common_name),
-             pch=21,
+                 fill = common_name,
+                 shape = common_name
+                 ),
+             # pch=21,
              size=2,
              alpha=I(0.7))+
-    theme(legend.position = "bottom")
+  # geom_text(
+  #   label=title,
+  #   nudge_x = 0.25, nudge_y = 0.25,
+  #   check_overlap = T
+  # )+
+  # geom_text(data = hbdata,
+  #   aes(
+  #     x = long,
+  #     y = lat,
+  #     label=title
+  #   ),
+  #   # check_overlap = TRUE,
+  #   # nudge_x = -14.25,
+  #   # nudge_y = -5.25
+  # )+
+  labs(
+    title = "Hollywood's Lost Biodiversity",
+    subtitle = "submit your sightings at https://github.com/BrunaLab/hollywood-biodiversity"
+  )+
+  geom_text_repel(data = hbdata,
+                  aes(
+                    x = long,
+                    y = lat,
+                    label=title
+                  ),
+                  # check_overlap = TRUE,
+                  # nudge_x = -14.25,
+                  # nudge_y = -5.25
+                  )+
+    # theme(legend.position = "bottom")
+  theme(legend.position = "right")
 map_data
 
 
