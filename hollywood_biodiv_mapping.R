@@ -11,6 +11,17 @@ library(ggrepel)
 
 # http://sarahleejane.github.io/learning/r/2014/09/20/plotting-beautiful-clear-maps-with-r.html
 # https://sarahleejane.github.io/learning/r/2014/09/21/plotting-data-points-on-maps-with-r.html
+
+
+
+# read in data ------------------------------------------------------------
+
+
+hbdata<-read_csv("./data_raw/hb_data_raw.csv") %>%
+  mutate_all(tolower) %>%
+  mutate(lat=as.numeric(lat)) %>%
+  mutate(long=as.numeric(long))
+
 # prep maps ---------------------------------------------------------------
 
 
@@ -40,13 +51,6 @@ base_world
 
 
 
-# read in data ------------------------------------------------------------
-
-
-hbdata<-read_csv("./data_raw/hb_data_raw.csv") %>%
-  mutate_all(tolower) %>%
-  mutate(lat=as.numeric(lat)) %>%
-  mutate(long=as.numeric(long))
 
 # plot data  --------------------------------------------------------------
 
