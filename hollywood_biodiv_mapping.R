@@ -6,7 +6,7 @@ library(maps)
 library(ggplot2)
 library(ggrepel)
 library(stringi)
-
+library(ggtext) # to render the strip as markdown
 # http://sarahleejane.github.io/learning/r/2014/09/20/plotting-beautiful-clear-maps-with-r.html
 # https://sarahleejane.github.io/learning/r/2014/09/21/plotting-data-points-on-maps-with-r.html
 
@@ -33,7 +33,7 @@ p <- ggplot() +
 # Add map to base plot
 base_world_messy <- p + geom_polygon(
   data = world_map, aes(x = long, y = lat, group = group),
-  colour = "darkgray", fill = "darkgray"
+  colour = "lightgray", fill = "lightgray"
 )
 
 base_world_messy
@@ -60,7 +60,7 @@ base_world
 hbdata <- hbdata %>%
   mutate(genus = stri_trans_totitle(genus)) %>%
   mutate(common_name = stri_trans_totitle(common_name)) %>%
-  mutate(label_name = paste(common_name, " (", genus, " ", species, ")", sep = ""))
+  mutate(label_name = paste("**",common_name, " (_", genus, " ", species, "_)**", sep = ""))
 
 
 
@@ -73,11 +73,12 @@ map_data <-
       y = lat,
       # fill = label_name,
       # shape = label_name,
-      # colour = label_name
+
     ),
     # pch=21,
     size = 2,
-    alpha = I(0.7)
+    alpha = I(0.7),
+    colour = "darkgreen"
   ) +
   # scale_color_brewer(palette="Set1")+
   labs(
@@ -90,7 +91,7 @@ map_data <-
       x = long,
       y = lat,
       label = title
-    ),
+    )
     # check_overlap = TRUE,
     # nudge_x = -14.25,
     # nudge_y = -5.25
@@ -100,10 +101,12 @@ map_data <-
   ) +
   theme(
     legend.position = "none",
-    strip.text.x = element_text(size = 12, face = "bold")
+    strip.text.x = element_markdown(size = 12, color="midnightblue")
+    # strip.text.x = element_text(size = 12, face = "bold")
   )
 map_data
-
+ggsave("hollywood_biodiversity_map.pdf",width = 20, height = 22, units = "cm")
+ggsave("hollywood_biodiversity_map.png",width = 20, height = 22, units = "cm")
 
 # if you want to change the colors....
 # mapfill <- c('screaming piha' = "forestgreen", 'baboon' = "purple")
