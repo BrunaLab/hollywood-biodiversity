@@ -101,12 +101,12 @@ map_data <-
   ) +
   theme(
     legend.position = "none",
-    strip.text.x = element_markdown(size = 12, color="midnightblue")
+    strip.text.x = element_markdown(size = 6, color="midnightblue")
     # strip.text.x = element_text(size = 12, face = "bold")
   )
 map_data
-ggsave("hollywood_biodiversity_map.pdf",width = 20, height = 22, units = "cm")
-ggsave("hollywood_biodiversity_map.png",width = 20, height = 22, units = "cm")
+ggsave("hollywood_biodiversity_map.pdf",width = 30, height = 22, units = "cm")
+ggsave("hollywood_biodiversity_map.png",width = 30, height = 22, units = "cm")
 
 # if you want to change the colors....
 # mapfill <- c('screaming piha' = "forestgreen", 'baboon' = "purple")
