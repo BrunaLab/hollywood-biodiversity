@@ -91,7 +91,8 @@ map_data <-
       x = long,
       y = lat,
       label = title
-    )
+    ),
+    size=3
     # check_overlap = TRUE,
     # nudge_x = -14.25,
     # nudge_y = -5.25
